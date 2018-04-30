@@ -1360,7 +1360,8 @@ public class SolrLogger
     }
 
     private static HttpSolrServer createCore(HttpSolrServer solr, String coreName) throws IOException, SolrServerException {
-        String solrDir = ConfigurationManager.getProperty("dspace.dir") + File.separator + "solr" +File.separator;
+        String solrDir = ConfigurationManager.getProperty("solr.home");
+	log.info("Solr dir is: " + solrDir;
         String baseSolrUrl = solr.getBaseURL().replace("statistics", "");
         CoreAdminRequest.Create create = new CoreAdminRequest.Create();
         create.setCoreName(coreName);
