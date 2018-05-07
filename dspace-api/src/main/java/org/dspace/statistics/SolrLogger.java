@@ -139,7 +139,6 @@ public class SolrLogger
             }
         }
         solr = server;
-
         // Read in the file so we don't have to do it all the time
         //spiderIps = SpiderDetector.getSpiderIpAddresses();
 
@@ -167,7 +166,6 @@ public class SolrLogger
             log.error("The required 'dbfile' configuration is missing in solr-statistics.cfg!");
         }
         locationService = service;
-
         if ("true".equals(ConfigurationManager.getProperty("useProxies")))
         {
             useProxies = true;
@@ -1361,7 +1359,7 @@ public class SolrLogger
 
     private static HttpSolrServer createCore(HttpSolrServer solr, String coreName) throws IOException, SolrServerException {
         String solrDir = ConfigurationManager.getProperty("solr.home");
-	log.info("Solr dir is: " + solrDir;
+	log.info("Solr dir is: " + solrDir);
         String baseSolrUrl = solr.getBaseURL().replace("statistics", "");
         CoreAdminRequest.Create create = new CoreAdminRequest.Create();
         create.setCoreName(coreName);
