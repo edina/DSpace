@@ -114,7 +114,8 @@ public class SolrLogger
                 server.query(solrQuery);
 
                 //Attempt to retrieve all the statistic year cores
-                File solrDir = new File(ConfigurationManager.getProperty("dspace.dir") + "/solr/");
+		log.info("Setting the solrDir to:" + ConfigurationManager.getProperty("solr.home"));
+                File solrDir = new File(ConfigurationManager.getProperty("solr.home"));
                 File[] solrCoreFiles = solrDir.listFiles(new FileFilter() {
 
                     @Override

@@ -138,7 +138,9 @@ public class SolrLogger
                 server.query(solrQuery);
 
                 //Attempt to retrieve all the statistic year cores
-                File solrDir = new File(ConfigurationManager.getProperty("dspace.dir") + "/solr/");
+		log.info("Setting the solrDir to:/var/data/datashare/solr");
+                //File solrDir = new File(ConfigurationManager.getProperty("solr.home"));
+		File solrDir = new File("/var/data/datashare/solr");
                 File[] solrCoreFiles = solrDir.listFiles(new FileFilter() {
 
                     @Override
@@ -149,6 +151,7 @@ public class SolrLogger
                 });
                 //Base url should like : http://localhost:{port.number}/solr
                 String baseSolrUrl = server.getBaseURL().replace("statistics", "");
+		log.info("Found these dirs:" + solrCoreFiles.toString());
                 for (File solrCoreFile : solrCoreFiles) {
                     log.info("Loading core with name: " + solrCoreFile.getName());
 
@@ -1373,7 +1376,9 @@ public class SolrLogger
     }
 
     private static HttpSolrServer createCore(HttpSolrServer solr, String coreName) throws IOException, SolrServerException {
-        String solrDir = ConfigurationManager.getProperty("dspace.dir") + File.separator + "solr" +File.separator;
+	//String solrDir = ConfigurationManager.getProperty("solr.home");
+	String solrDir = "/var/data/datashare/solr";
+        log.info("Solr dir is:/var/data/datashare/solr");
         String baseSolrUrl = solr.getBaseURL().replace("statistics", "");
         CoreAdminRequest.Create create = new CoreAdminRequest.Create();
         create.setCoreName(coreName);
