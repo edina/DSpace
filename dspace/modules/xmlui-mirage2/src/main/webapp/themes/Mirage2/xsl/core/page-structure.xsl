@@ -137,6 +137,7 @@
                                </div>
                              </div>
                            </div>
+                           </div>
                            <div id="footer-2">
                              <div class="container">
                                <div id="footer-2-col-1">
@@ -145,22 +146,23 @@
                                      <a href="http://www.ed.ac.uk/about/website/accessibility">Accessibility</a>
                                    </li>
                                    <li>
-                                     <a href="http://www.ed.ac.uk/about/website/privacy">Privacy &amp; cookies</a>
+                                     <a href="http://www.ed.ac.uk/about/website/privacy">Cookies</a>
                                    </li>
 
                                    <li>
-                                     <a href="http://www.ed.ac.uk/information-services/research-support/data-library/contact-us">Contact Us</a>
+                                     <a href="https://www.ed.ac.uk/information-services/research-support/research-data-service/sharing-preserving-data/data-repository/service-policies/privacy-notice">DataShare Privacy Notice</a>
                                    </li>
                                  </ul>
                                </div>
                                <div id="footer-2-col-2">
                                  <ul>
+                                   <li><a href="http://www.ed.ac.uk/information-services/research-support/data-library/contact-us">Contact Us</a></li>
                                    <li><a href="http://www.ed.ac.uk/information-services/research-support/data-library/data-repository/service-policies/service-level-definition">Service level definition</a></li>
                                    <li><a href="http://www.ed.ac.uk/about/website/freedom-information">Freedom of information</a></li>
                                  </ul>
                                </div>
+                               <div id="footer-2-col-3">The University of Edinburgh is a charitable body, registered in Scotland, with registration number SC005336, VAT Registration Number GB 592 9507 00, and is acknowledged by the UK authorities as a “Recognised body” which has been granted degree awarding powers.</div>
                              </div>
-                           </div>
                          </div>
                          <!-- DATASHARE - end -->
 
