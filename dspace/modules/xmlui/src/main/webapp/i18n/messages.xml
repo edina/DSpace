@@ -443,7 +443,7 @@
     <message key="xmlui.ArtifactBrowser.ItemRequestResponseError.title">File too large.</message>
     <message key="xmlui.ArtifactBrowser.ItemRequestResponseError.trail">File too large.</message>
     <message key="xmlui.ArtifactBrowser.ItemRequestResponseError.head">File too large.</message>
-    <message key="xmlui.ArtifactBrowser.ItemRequestResponseError.para1">The attached file was too large for the email server to send to the person who sent you the request. Please find an alternative route to send the file. For example the University's DataSync system (<a href="http://www.ed.ac.uk/information-services/computing/desktop-personal/datasync">http://www.ed.ac.uk/information-services/computing/desktop-personal/datasync</a>) makes it easy for you to share files with people outside of the university. If you would like assistance with this please email the Research Data Service on <a href="mailto:datalib@ed.ac.uk">datalib@ed.ac.uk</a>. Another possible solution would be to lift the embargo on the deposit entirely; if you'd like to make the data public in that way, please email the Research Data Service on <a href="mailto:datalib@ed.ac.uk">datalib@ed.ac.uk</a> or call us on ext 515277.</message>
+    <message key="xmlui.ArtifactBrowser.ItemRequestResponseError.para1">The attached file was too large for the email server to send to the person who sent you the request. Please find an alternative route to send the file. For example the University's DataSync system (<a href="http://www.ed.ac.uk/information-services/computing/desktop-personal/datasync">http://www.ed.ac.uk/information-services/computing/desktop-personal/datasync</a>) makes it easy for you to share files with people outside of the university. If you would like assistance with this please email the Research Data Service on <a href="mailto: data-support@ed.ac.uk"> data-support@ed.ac.uk</a>. Another possible solution would be to lift the embargo on the deposit entirely; if you'd like to make the data public in that way, please email the Research Data Service on <a href="mailto: data-support@ed.ac.uk"> data-support@ed.ac.uk</a> or call us on ext 515277.</message>
     <!-- DATASHARE end -->
 
 
@@ -830,7 +830,7 @@
     <!-- org.dspace.app.xmlui.Submission.submit.UploadStep -->
 	<message key="xmlui.Submission.submit.UploadStep.head">Upload File(s)</message>
 	<message key="xmlui.Submission.submit.UploadStep.file">File</message>
-	<message key="xmlui.Submission.submit.UploadStep.file_help">Individual submissions over 20 GB are not permitted at this time. If your files are too large or too numerous to be uploaded through the browser, the Data Library team can arrange an alternative means of transfer, and then conduct batch import to ingest them into DataShare. Please contact us to arrange assistance, by email to <a href="mailto:datalib@ed.ac.uk">datalib@ed.ac.uk</a>.</message>
+	<message key="xmlui.Submission.submit.UploadStep.file_help">Individual submissions over 20 GB are not permitted at this time. If your files are too large or too numerous to be uploaded through the browser, the Data Library team can arrange an alternative means of transfer, and then conduct batch import to ingest them into DataShare. Please contact us to arrange assistance, by email to <a href="mailto: data-support@ed.ac.uk"> data-support@ed.ac.uk</a>.</message>
 	<message key="xmlui.Submission.submit.UploadStep.file_error">The item must contain at least one file.</message>
 	<message key="xmlui.Submission.submit.UploadStep.upload_error">There was a problem uploading your file.  Either the filename you entered was incorrect, there was a network problem which prevented the file from reaching us correctly, or you have attempted to upload a file format marked for internal system use only.  Please try again.</message>
 	<message key="xmlui.Submission.submit.UploadStep.virus_error">File has failed virus checking, if in doubt please contact the system administrator.</message>
@@ -863,10 +863,10 @@
 	<message key="xmlui.Submission.submit.ResumableUploadStep.dialog.delete">Are you sure you want to delete</message>
 	<message key="xmlui.Submission.submit.ResumableUploadStep.dialog.deletesf">selected files</message>
 	<message key="xmlui.Submission.submit.ResumableUploadStep.dialog.deleteunmatch">The file that will be deleted does not match the one you selected, Do you want to continue</message>
-    <message key="xmlui.Submission.submit.ResumableUploadStep.uploaderror">Something has gone wrong when uploading a file. Please try again or contact us at <a href="mailto:datalib@ed.ac.uk">datalib@ed.ac.uk</a>.</message>
-	<message key="xmlui.Submission.submit.ResumableUploadStep.createerror">Something has gone wrong when uploading a file. Please try again or contact us at <a href="mailto:datalib@ed.ac.uk">datalib@ed.ac.uk</a>.</message>
+    <message key="xmlui.Submission.submit.ResumableUploadStep.uploaderror">Something has gone wrong when uploading a file. Please try again or contact us at <a href="mailto: data-support@ed.ac.uk"> data-support@ed.ac.uk</a>.</message>
+	<message key="xmlui.Submission.submit.ResumableUploadStep.createerror">Something has gone wrong when uploading a file. Please try again or contact us at <a href="mailto: data-support@ed.ac.uk"> data-support@ed.ac.uk</a>.</message>
 	<message key="xmlui.Submission.submit.ResumableUploadStep.nospace">There is not enough space left in this item. You are restricted to {0} bytes</message>
-    <message key="xmlui.Submission.submit.ResumableUploadStep.file_help">You may upload up to 20 GB for deposit via this form. If you wish to create a deposit of between 20 GB and 100 GB please contact the Research Data Service to arrange a batch import on <a href="mailto:datalib@ed.ac.uk">datalib@ed.ac.uk</a> or call us on ext. 515277</message>
+    <message key="xmlui.Submission.submit.ResumableUploadStep.file_help">You may upload up to 20 GB for deposit via this form. If you wish to create a deposit of between 20 GB and 100 GB please contact the Research Data Service to arrange a batch import on <a href="mailto: data-support@ed.ac.uk"> data-support@ed.ac.uk</a> or call us on ext. 515277</message>
 
     <message key="xmlui.Submission.submit.UploadWithEmbargoStep.head">Upload File(s)</message>
     <message key="xmlui.Submission.submit.UploadWithEmbargoStep.file">File</message>
