@@ -53,6 +53,12 @@ public class ItemRequestResponseAction extends AbstractAction
 {
 	/** log4j log */
     private static Logger log = Logger.getLogger(ItemRequestResponseAction.class);
+    
+    // DATASHARE - start
+    private static final String ITEM_NOT_EMAILABLE_METADATA_TAG = "ds.not-emailable.item";
+    private static final String BITSTREAM_NOT_EMAILABLE_METADATA_TAG = "ds.not-emailable.bitstream";
+    
+    // DATASHARE - end
 
     public Map act(Redirector redirector, SourceResolver resolver, Map objectModel,
             String source, Parameters parameters) throws Exception
@@ -186,36 +192,45 @@ public class ItemRequestResponseAction extends AbstractAction
     	return false;
 	}
 
-	private void processSendDocuments(Context context,Request request, RequestItem requestItem,Item item,String title) throws SQLException, MessagingException, IOException {
-    	String message = request.getParameter("message");
-    	String subject = request.getParameter("subject");
-    	
-    	Email email = new Email();
-        email.setSubject(subject);
-        email.setContent("{0}");
-		email.addRecipient(requestItem.getReqEmail());
-        email.addArgument(message);
-       
-        if (requestItem.isAllfiles()){
-            Bundle[] bundles = item.getBundles("ORIGINAL");
-            for (int i = 0; i < bundles.length; i++){
-                Bitstream[] bitstreams = bundles[i].getBitstreams();
-                for (int k = 0; k < bitstreams.length; k++){
-                    if (!bitstreams[k].getFormat().isInternal() /*&& RequestItemManager.isRestricted(context, bitstreams[k])*/){
-                        email.addAttachment(BitstreamStorageManager.retrieve(context, bitstreams[k].getID()), bitstreams[k].getName(), bitstreams[k].getFormat().getMIMEType());
-                    }
-                }
-            }
-        } else {
-            Bitstream bit = Bitstream.find(context,requestItem.getBitstreamId());
-            email.addAttachment(BitstreamStorageManager.retrieve(context, requestItem.getBitstreamId()), bit.getName(), bit.getFormat().getMIMEType());
-        }     
-        
-        email.send();
+	private void processSendDocuments(Context context, Request request, RequestItem requestItem, Item item, String title) throws SQLException, MessagingException, IOException {
+		// DATASHARE - start
+		if (isRequestItemEmailable(context, requestItem, item)) {
+			String message = request.getParameter("message");
+			String subject = request.getParameter("subject");
 
-        requestItem.setDecision_date(new Date());
-        requestItem.setAccept_request(true);
-        requestItem.update(context);
+			Email email = new Email();
+			email.setSubject(subject);
+			email.setContent("{0}");
+			email.addRecipient(requestItem.getReqEmail());
+			email.addArgument(message);
+
+			if (requestItem.isAllfiles()) {
+				Bundle[] bundles = item.getBundles("ORIGINAL");
+				for (int i = 0; i < bundles.length; i++) {
+					Bitstream[] bitstreams = bundles[i].getBitstreams();
+					for (int k = 0; k < bitstreams.length; k++) {
+						if (!bitstreams[k].getFormat()
+								.isInternal() /* && RequestItemManager.isRestricted(context, bitstreams[k]) */) {
+							email.addAttachment(BitstreamStorageManager.retrieve(context, bitstreams[k].getID()),
+									bitstreams[k].getName(), bitstreams[k].getFormat().getMIMEType());
+						}
+					}
+				}
+			} else {
+				Bitstream bit = Bitstream.find(context, requestItem.getBitstreamId());
+				email.addAttachment(BitstreamStorageManager.retrieve(context, requestItem.getBitstreamId()),
+						bit.getName(), bit.getFormat().getMIMEType());
+			}
+
+			email.send();
+
+			requestItem.setDecision_date(new Date());
+			requestItem.setAccept_request(true);
+			requestItem.update(context);
+		} else {
+			// TBD: What we do if 
+		}
+		// DATASHARE - end
 	}
 
 	private void processDeny(Context context,Request request, RequestItem requestItem,Item item,String title) throws SQLException, IOException, MessagingException {
@@ -274,4 +289,36 @@ public class ItemRequestResponseAction extends AbstractAction
 
         email.send();
     }
+    
+    // DATASHARE - start
+    /**
+     * Checks if requested item is emailable.
+     * 
+     */
+    private boolean isRequestItemEmailable(Context context, RequestItem requestItem, Item item) {
+    	// Check if requested item is an Item or Bitstream and if it has the metadata tag:
+    	// ds.not-emailable.item for Item or
+    	// ds.not-emailable.bitstream for bitstream.
+    	try {
+    		if (requestItem.isAllfiles() && item.getMetadata(ITEM_NOT_EMAILABLE_METADATA_TAG) != null){
+    			log.debug(ITEM_NOT_EMAILABLE_METADATA_TAG + ": " + item.getMetadata(ITEM_NOT_EMAILABLE_METADATA_TAG));
+    			return false;
+    		} else {
+    			Bitstream bit = Bitstream.find(context, requestItem.getBitstreamId());
+    			if (bit != null && bit.getMetadata(BITSTREAM_NOT_EMAILABLE_METADATA_TAG) != null) {
+    				log.debug(BITSTREAM_NOT_EMAILABLE_METADATA_TAG + ": " + item.getMetadata(BITSTREAM_NOT_EMAILABLE_METADATA_TAG));
+    			 return false;
+    			}
+    		}
+    	 } catch (IllegalArgumentException iae) {
+    		// Do nothing as it means that the requested item does not have
+    		// either of the not emailable metadata tags:
+    		// ds.not-emailable.item or ds.not-emailable.bitstream
+    	} catch (SQLException sqle) {
+    		// Do nothing (should not happen) 
+    	}
+    	
+    	return true;
+    }
+    // DATASHARE - start
 }
