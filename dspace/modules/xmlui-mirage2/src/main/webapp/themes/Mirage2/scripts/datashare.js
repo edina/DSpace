@@ -46,10 +46,13 @@ function organiseMetadataGroups(){
         return;
     }
 
+    // DATASHARE start
+    // Changes:
+    // Group 1 text from "Provide an abstract and attach keywords." to "Provide a dataset description and attach keywords."
     var map = {
         'Group 1': {
             'id': 'aspect_submission_StepTransformer_field_dc_identifier_govdoc',
-            'text': 'Provide an abstract and attach keywords.',
+            'text': 'Provide a dataset description and attach keywords.',
             'items': ['aspect_submission_StepTransformer_field_dc_title_alternative',
                       'aspect_submission_StepTransformer_field_dc_description_abstract',
                       'aspect_submission_StepTransformer_field_dc_subject_classification',
@@ -79,6 +82,7 @@ function organiseMetadataGroups(){
         }
 
     };
+    // DATASHARE end
 
     $.each(map, function(i, group){
         var hide = true;
