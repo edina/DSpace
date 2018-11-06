@@ -2576,7 +2576,7 @@
 
     <message key="timeperiod.control.label">Time Period</message>
     <message key="timeperiod.control.help">
-      Enter the time period for which the data was created or collected.
+      Enter the time period to which the data relate, if relevant.
     </message>
 
     <message key="license.rights-statement"> Enter a statement about the Intellectual Property Rights (IPR) held over the resource. If a full online rights statement exists enter the URL.
