@@ -101,9 +101,12 @@ public class Contact extends AbstractDSpaceTransformer implements CacheableProce
         
         List list = contact.addList("contact");
         
-        list.addLabel(T_feedback_label);
-        list.addItem().addXref(contextPath+"/feedback",T_feedback_link);
-        
+        // DATASHARE start
+        // Commented our Feedback linl
+//        list.addLabel(T_feedback_label);
+//        list.addItem().addXref(contextPath+"/feedback",T_feedback_link);
+        // DATASHARE end
+
         list.addLabel(T_email);
         String email = ConfigurationManager.getProperty("feedback.recipient");
         list.addItem().addXref("mailto:"+email,email); 
