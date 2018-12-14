@@ -590,7 +590,9 @@
     <xsl:template name="itemSummaryView-DIM-isreferencedby">
       <xsl:if test="dim:field[@element='relation' and @qualifier='isreferencedby' and descendant::text()]">
         <xsl:variable name="irb" select="dim:field[@element='relation' and @qualifier='isreferencedby']"></xsl:variable>
-        <xsl:if test="starts-with($irb, 'http://')">
+        <xsl:comment><!-- DATASHARE - start --></xsl:comment>
+        <xsl:if test="starts-with($irb, 'http://') or starts-with($irb, 'https://')">
+        <xsl:comment><!-- DATASHARE - end --></xsl:comment>
           <div class="simple-item-view-isreferencedby word-break item-page-field-wrapper table">
             <h5>Relation (Is Referenced By)</h5>
             <a>
