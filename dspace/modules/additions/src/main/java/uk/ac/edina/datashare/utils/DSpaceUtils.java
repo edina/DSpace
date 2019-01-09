@@ -38,7 +38,7 @@ public class DSpaceUtils
     private static final String ENCODING_SCHEME = "W3C-DTF";
     private static final Logger LOG = Logger.getLogger(DSpaceUtils.class);
     
-    public static final String DOI_URL = "http://dx.doi.org";
+    public static final String DOI_URL = "https://doi.org";
     
     /**
      * Helper method for appending publisher to a buffer string.
