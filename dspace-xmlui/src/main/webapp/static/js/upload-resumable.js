@@ -149,6 +149,13 @@ if(doResumable){
         // Handle progress for both the file and the overall upload
         $('#file-status-' + file.uniqueIdentifier + ' div').html(Math.floor(file.progress()*100) + '%');
         $('#aspect_submission_StepTransformer_div_progress-bar').css({width:Math.floor(r.progress()*100) + '%'});
+        // DATASHARE start
+        if(Math.floor(r.progress())*100 < 100) {
+            $("button[name='submit_next']").prop("disabled", true);
+        } else {
+            $("button[name='submit_next']").prop("disabled", false);
+        }
+        // DATASHARE end
     });
 
     r.on('pause', function(){
