@@ -153,11 +153,19 @@ public class SolrLogger
                 String baseSolrUrl = server.getBaseURL().replace("statistics", "");
 		log.info("Found these dirs:" + solrCoreFiles.toString());
                 for (File solrCoreFile : solrCoreFiles) {
-                    log.info("Loading core with name: " + solrCoreFile.getName());
-
-                    createCore(server, solrCoreFile.getName());
-                    //Add it to our cores list so we can query it !
-                    statisticYearCores.add(baseSolrUrl.replace("http://", "").replace("https://", "") + solrCoreFile.getName());
+                    // DATASHARE - start
+                    // Added try catch block to catch Solr core creation errors like 
+                    // "ERROR org.dspace.statistics.SolrLogger @ Core with name 'statistics-2010' already exists."
+                    // This allows Solr core  creation to proceed , currently any error here prevents further Solr core creation.
+                    try {
+                        log.info("Loading core with name: " + solrCoreFile.getName());
+                        createCore(server, solrCoreFile.getName());
+                        //Add it to our cores list so we can query it !
+                        statisticYearCores.add(baseSolrUrl.replace("http://", "").replace("https://", "") + solrCoreFile.getName());
+                    } catch (Exception ex) {
+                        log.error(ex.getMessage(), ex);
+                    }
+                    // DATASHARE - end
                 }
                 //Also add the core containing the current year !
                 statisticYearCores.add(server.getBaseURL().replace("http://", "").replace("https://", ""));
