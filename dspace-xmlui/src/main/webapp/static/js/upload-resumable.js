@@ -150,7 +150,8 @@ if(doResumable){
         $('#file-status-' + file.uniqueIdentifier + ' div').html(Math.floor(file.progress()*100) + '%');
         $('#aspect_submission_StepTransformer_div_progress-bar').css({width:Math.floor(r.progress()*100) + '%'});
         // DATASHARE start
-        if(Math.floor(r.progress())*100 < 100 && Math.floor(file.progress()*100) < 100) {
+        // If either overall upload progress or individual progress less than 100% we disable the next button.
+        if(Math.floor(r.progress())*100 < 100 || Math.floor(file.progress()*100) < 100) {
             $("button[name='submit_next']").prop("disabled", true);
         } else {
             $("button[name='submit_next']").prop("disabled", false);
