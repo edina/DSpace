@@ -141,6 +141,7 @@ public class SolrLogger
 		log.info("Setting the solrDir to:/var/data/datashare/solr");
                 //File solrDir = new File(ConfigurationManager.getProperty("solr.home"));
 		File solrDir = new File("/var/data/datashare/solr");
+		//File solrDir = new File("/home/vagrant/local/datashare/solr/");
                 File[] solrCoreFiles = solrDir.listFiles(new FileFilter() {
 
                     @Override
@@ -153,11 +154,20 @@ public class SolrLogger
                 String baseSolrUrl = server.getBaseURL().replace("statistics", "");
 		log.info("Found these dirs:" + solrCoreFiles.toString());
                 for (File solrCoreFile : solrCoreFiles) {
-                    log.info("Loading core with name: " + solrCoreFile.getName());
-
-                    createCore(server, solrCoreFile.getName());
-                    //Add it to our cores list so we can query it !
-                    statisticYearCores.add(baseSolrUrl.replace("http://", "").replace("https://", "") + solrCoreFile.getName());
+                    // DATASHARE - start
+                    // Added try catch block to catch Solr core creation errors like 
+                    // "ERROR org.dspace.statistics.SolrLogger @ Core with name 'statistics-2010' already exists."
+                    // This allows Solr core  creation to proceed , currently any error here prevents further Solr core creation.
+                    try {
+                        log.info("Loading core with name: " + solrCoreFile.getName());
+                        createCore(server, solrCoreFile.getName());
+                        //Add it to our cores list so we can query it !
+                        //statisticYearCores.add(baseSolrUrl.replace("http://", "").replace("https://", "") + solrCoreFile.getName());
+                    } catch (Exception ex) {
+                        log.error(ex.getMessage(), ex);
+                    }
+		    statisticYearCores.add(baseSolrUrl.replace("http://", "").replace("https://", "") + solrCoreFile.getName());
+                    // DATASHARE - end
                 }
                 //Also add the core containing the current year !
                 statisticYearCores.add(server.getBaseURL().replace("http://", "").replace("https://", ""));
@@ -1378,6 +1388,7 @@ public class SolrLogger
     private static HttpSolrServer createCore(HttpSolrServer solr, String coreName) throws IOException, SolrServerException {
 	//String solrDir = ConfigurationManager.getProperty("solr.home");
 	String solrDir = "/var/data/datashare/solr";
+	//String solrDir = "/home/vagrant/local/datashare/solr/";
         log.info("Solr dir is:/var/data/datashare/solr");
         String baseSolrUrl = solr.getBaseURL().replace("statistics", "");
         CoreAdminRequest.Create create = new CoreAdminRequest.Create();
