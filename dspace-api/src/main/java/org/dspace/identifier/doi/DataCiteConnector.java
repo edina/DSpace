@@ -530,7 +530,19 @@ implements DOIConnector
                     + " and id " + dso.getID() + " already has DOI "
                     + metadataDOI + ". Won't reserve DOI " + doi + " for it.");
         }
-        
+
+        // DATASHARE - start
+        // Code to display XML to be sent to Datacite
+        try {
+            Format format = Format.getCompactFormat();
+            format.setEncoding("UTF-8");
+            XMLOutputter xout = new XMLOutputter(format);
+            log.info("XML sent to Datacite to reserve or update DOI:\n" + xout.outputString(root));
+        } catch(Exception e) {
+          log.info("Cannot display XML sent to Datacite " + e.toString());
+        }
+        // DATASHARE - end
+
         // send metadata as post to mds/metadata
         DataCiteResponse resp = this.sendMetadataPostRequest(doi, root);
         
