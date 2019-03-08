@@ -194,11 +194,7 @@
             -->
 
             <!-- Add rights. -->
-            <xsl:if test="count(//dspace:field[@mdschema='dc' and @element='rights']) &gt; 0">
-                <rightsList>
-                    <xsl:apply-templates select="//dspace:field[@mdschema='dc' and @element='rights']" />
-                </rightsList>
-            </xsl:if>
+            <xsl:apply-templates select="//dspace:field[@mdschema='dc' and @element='rights']" />
 
             <!-- Add descriptions. -->
             <xsl:if test="//dspace:field[@mdschema='dc' and @element='description'][not(@qualifier='provenance')]">
