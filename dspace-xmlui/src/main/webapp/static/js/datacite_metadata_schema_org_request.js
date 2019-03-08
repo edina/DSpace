@@ -30,14 +30,10 @@ $(document).ready(function () {
       url: url,
       dataType: 'text', // don't convert JSON to Javascript object
       success: function (data) {
-        // Using vanilla JS instead of JQuery, as
-        // JQuery appendTo did not add element to head.
-        var scriptElement = document.createElement("script");
-        scriptElement.type = "application/ld+json";
-        scriptElement.innerHTML = data;
-        var head = document.querySelector("head");
-        head.appendChild(scriptElement);
-
+        $('<script>')
+         .attr('type', 'application/ld+json')
+         .text(data)
+         .appendTo('.container');
       },
       error: function (error) {
         console.log(error.responseJSON);
