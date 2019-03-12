@@ -11,7 +11,7 @@ $(document).ready(function () {
     }
 
     // URLs of live and test Datacite api
-    var LIVE_DATACITE_API_URL = "https://api.datacite.org/dois/application/vnd.schemaorg.ld+json";
+    var LIVE_DATACITE_API_URL = "https://data.datacite.org/application/vnd.schemaorg.ld+json";
     var TEST_DATACITE_API_URL = "https://api.test.datacite.org/dois/application/vnd.schemaorg.ld+json";
 
     var doiString = doiDcIdentifierElement.attr("content");
@@ -33,7 +33,7 @@ $(document).ready(function () {
         $('<script>')
          .attr('type', 'application/ld+json')
          .text(data)
-         .appendTo('.container');
+         .appendTo('.container:first');
       },
       error: function (error) {
         console.log(error.responseJSON);
