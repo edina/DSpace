@@ -33,7 +33,7 @@ $(document).ready(function () {
         $('<script>')
          .attr('type', 'application/ld+json')
          .text(data)
-         .appendTo('.container:first');
+         .appendTo('head');
       },
       error: function (error) {
         console.log(error.responseJSON);
