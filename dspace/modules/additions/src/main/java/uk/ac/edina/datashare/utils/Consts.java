@@ -58,8 +58,11 @@ public interface Consts
     public static final int EMBARGO_TOO_FAR_IN_FUTURE = 9027;
 
     // ************ License consts **********************//
-    
-    /** Full path and name of ODC Attribution license file. */
+    public static final String CREATIVE_COMMONS_BY_RIGHTS_STATEMENT =
+        "Creative Commons Attribution 4.0 International Public License";
+    public static final String CREATIVE_COMMONS_BY_RIGHTS_URI =
+        "https://creativecommons.org/licenses/by/4.0/";
+    /** Full path and name of Creative Commons By license file. */
     public static final String CREATIVE_COMMONS_BY_LICENCE =
         ConfigurationManager.getProperty("dspace.dir") + File.separator +
         "config" + File.separator + "cc-by.license";
@@ -71,6 +74,7 @@ public interface Consts
     public static final String OPEN_DATA_LICENCE =
         ConfigurationManager.getProperty("dspace.dir") + File.separator +
         "config" + File.separator + "open-data.license";
+    
     
     /** User license control name */
     public static final String USER_LICENSE_CONTROL = "license-options";

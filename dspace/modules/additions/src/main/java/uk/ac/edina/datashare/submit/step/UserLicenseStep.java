@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.dspace.app.util.SubmissionInfo;
 import org.dspace.app.util.Util;
 import org.dspace.authorize.AuthorizeException;
@@ -32,9 +33,7 @@ import uk.ac.edina.datashare.utils.UserLicense;
  */
 public class UserLicenseStep extends LicenseStep
 {
-	//private Logger LOG = Logger.getLogger(UserLicenseStep.class);
-	
-    /*
+	 /*
      * (non-Javadoc)
      * @see org.dspace.submit.AbstractProcessingStep#doProcessing(org.dspace.core.Context, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.dspace.app.util.SubmissionInfo)
      */
@@ -54,6 +53,8 @@ public class UserLicenseStep extends LicenseStep
         }
 
         UserLicense license = DSpaceUtils.getUserLicenseType(subInfo);
+        String rights =  MetaDataUtil.getRights(subInfo.getSubmissionItem().getItem());
+
         switch(license)
         {
             case NO_LICENSE:
@@ -239,11 +240,17 @@ public class UserLicenseStep extends LicenseStep
         	try
         	{
         		Item item = subInfo.getSubmissionItem().getItem();
-                    
+
         		// make sure there are no other licenses
         		CreativeCommons.removeLicense(context, item);
-        		MetaDataUtil.clearRights(item);
-        		
+                MetaDataUtil.clearRights(item);
+
+                // Add Consts.CREATIVE_COMMONS_BY_RIGHTS_STATEMENT to Dublin Core Metadata
+                // if licence is Consts.CREATIVE_COMMONS_BY_LICENCE
+                if (licenseFile.equals(Consts.CREATIVE_COMMONS_BY_LICENCE)) {
+                    MetaDataUtil.setRights(subInfo, Consts.CREATIVE_COMMONS_BY_RIGHTS_STATEMENT);
+                }
+
         		// now insert license
         		CreativeCommons.setLicense(
         				context,
