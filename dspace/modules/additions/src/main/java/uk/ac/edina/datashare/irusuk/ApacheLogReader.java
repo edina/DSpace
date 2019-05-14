@@ -85,9 +85,16 @@ public class ApacheLogReader {
         try (BufferedReader br = new BufferedReader(new FileReader(logName))) {
             String line;
             while ((line = br.readLine()) != null) {
-                IDownloadStat stat = this.parseLine(line);
-                if(stat != null){
-                    new IRUSUKLog(this.context, stat);                    
+                try {
+                    IDownloadStat stat = this.parseLine(line);
+                    if(stat != null) {
+                        new IRUSUKLog(this.context, stat);
+                    }
+                }
+                catch (Exception e) {
+                    // This is to prevent parsing or IRUSUKLog creation exceptions that were
+                    // breaking updates
+                    LOG.info("Error processing log: " + e.toString());
                 }
             }
         }
