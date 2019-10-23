@@ -49,7 +49,12 @@ public class Orcidv2 implements SolrAuthorityInterface {
      *  Initialize the accessToken that is required for all subsequent calls to ORCID
      */
     public void init() throws IOException {
-        if (StringUtils.isNotBlank(accessToken) && StringUtils.isNotBlank(clientSecret)) {
+    	// DATASHARE - start
+    	// Changed StringUtils.isNotBlank(accessToken) to StringUtils.isNotBlank(clientId)
+    	// otherwise this init method will never find the accessToken.
+        if (StringUtils.isNotBlank(clientId) && StringUtils.isNotBlank(clientSecret)) {
+       // DATASHARE - end
+
             String authenticationParameters = "?client_id=" + clientId + "&client_secret=" + clientSecret + "&scope=/read-public&grant_type=client_credentials";
             HttpPost httpPost = new HttpPost(OAUTHUrl + authenticationParameters);
             httpPost.addHeader("Accept", "application/json");
@@ -60,14 +65,21 @@ public class Orcidv2 implements SolrAuthorityInterface {
 
             InputStream is = getResponse.getEntity().getContent();
             BufferedReader streamReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            
+            // DATASHARE - start
+            log.info("Orcidv2 in init()  getResponse.getStatusLine(): " + getResponse.getStatusLine());
+            log.info("Orcidv2 in init()  getResponse.getEntity(): " + getResponse.getEntity());
+            // DATASHARE - end
 
             JSONObject responseObject = null;
             String inputStr;
             while ((inputStr = streamReader.readLine()) != null && responseObject == null) {
+            	log.info("Orcidv2 init method inputStr: " + inputStr);
                 if (inputStr.startsWith("{") && inputStr.endsWith("}") && inputStr.contains("access_token")) {
                     try {
                         responseObject = new JSONObject(inputStr);
                     } catch (Exception e) {
+                    	log.error("Orcidv2 init method: " + e);
                         //Not as valid as I'd hoped, move along
                         responseObject = null;
                     }
@@ -76,6 +88,9 @@ public class Orcidv2 implements SolrAuthorityInterface {
 
             if (responseObject != null && responseObject.has("access_token")) {
                 accessToken = (String) responseObject.get("access_token");
+                // DATASHARE - start
+                log.info("Orcidv2 initialized accessToken: " + accessToken);
+                // DATASHARE - end
             }
         }
     }
@@ -158,7 +173,7 @@ public class Orcidv2 implements SolrAuthorityInterface {
         }
 
         String searchPath = "search?q=" + URLEncoder.encode(text) + "&start=" + start + "&rows=" + rows;
-        log.debug("queryBio searchPath=" + searchPath + " accessToken=" + accessToken);
+        log.info("queryBio searchPath=" + searchPath + " accessToken=" + accessToken);
         InputStream bioDocument = restConnector.get(searchPath, accessToken);
         XMLtoBio converter = new XMLtoBio();
         List<Person> bios = converter.convert(bioDocument);

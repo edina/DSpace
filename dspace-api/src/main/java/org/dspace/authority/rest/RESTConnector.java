@@ -53,6 +53,7 @@ public class RESTConnector {
             HttpResponse getResponse = httpClient.execute(httpGet);
             //do not close this httpClient
             result = getResponse.getEntity().getContent();
+            log.info("RESTConnector response status: " + getResponse.getStatusLine());
 
         } catch (Exception e) {
             getGotError(e, fullPath);
