@@ -2403,7 +2403,10 @@
   <!-- params are: start, end, total-count, search-value -->
   <message key="xmlui.ChoiceLookupTransformer.results">Results @1@ to @2@ of @3@ for "@4@"</message>
   <message key="xmlui.ChoiceLookupTransformer.fail">Failed to load choice data: </message>
-  <message key="xmlui.ChoiceLookupTransformer.lookup">Lookup</message>
+  <!-- DATASHARE start -->
+  <!-- <message key="xmlui.ChoiceLookupTransformer.lookup">Lookup</message> -->
+  <message key="xmlui.ChoiceLookupTransformer.lookup">Orcid Lookup</message>
+  <!-- DATASHARE end -->
 
   <!-- Choice Lookup - sample config for dc.publisher field -->
   <message key="xmlui.ChoiceLookupTransformer.field.dc_publisher.help">Name of Publisher</message>
@@ -2418,10 +2421,10 @@
   <message key="xmlui.ChoiceLookupTransformer.field.dc_contributor_author.title">LC Name Authority author lookup</message>
   <message key="xmlui.ChoiceLookupTransformer.field.dc_contributor_author.nonauthority">Local value "@1@" (not in Naming Authority)</message>
 
-  <!-- DATSHARE start -->
+  <!-- DATASHARE start -->
   <message key="xmlui.ChoiceLookupTransformer.field.dc_subject_classification.help">Select the most appropriate subject for the study as a whole.</message>
   <message key="xmlui.ChoiceLookupTransformer.field.dc_subject_classification.title">Subject Classification</message>
-  <!-- DATSHARE end -->
+  <!-- DATASHARE end -->
 
   <!-- mobile theme -->
   <message key="xmlui.mobile.home_mobile">DSpace Mobile</message>
