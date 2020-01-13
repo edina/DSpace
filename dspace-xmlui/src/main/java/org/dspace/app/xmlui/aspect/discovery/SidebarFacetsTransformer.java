@@ -412,16 +412,19 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                         }
 
                         int gap = 1;
+                        //Attempt to retrieve our gap using the algorithm below
+
+                        int yearDifference = newestYear - oldestYear;
                         // DATASHARE - start
 	
-	                // Changes based on https://jira.duraspace.org/browse/DS-3791 and
-	                // quick fix https://github.com/DSpace/DSpace/pull/1901
-	
-	                //Attempt to retrieve our gap using the algorithm below.
-	                // One year is added to the "newestYear" to take into account that EXACTLY 10 years apart in values (eg: 2007-2017 entails 11 years)
-	                int yearDifference = (newestYear+1) - oldestYear;
-	
-	                // DATASHARE - END
+//	                // Changes based on https://jira.duraspace.org/browse/DS-3791 and
+//	                // quick fix https://github.com/DSpace/DSpace/pull/1901
+//	
+//	                //Attempt to retrieve our gap using the algorithm below.
+//	                // One year is added to the "newestYear" to take into account that EXACTLY 10 years apart in values (eg: 2007-2017 entails 11 years)
+//	                int yearDifference = (newestYear+1) - oldestYear;
+//	
+//	                // DATASHARE - END
                         if(yearDifference != 0){
                             while (10 < ((double)yearDifference / gap)){
                                 gap *= 10;
