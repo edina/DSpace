@@ -462,6 +462,10 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
 //                                    //We need to do -1 on this one to get a better result
 //                                    currentTop--;
 //                                }
+                                if(currentTop == bottomYear) {
+                                	//We need to do +1 on this one to get a better result
+                                	currentTop++;
+                                }
                                 facetQueries.add(dateFacet + ":[" + bottomYear + " TO " + currentTop + "]");
                             }
                             for (String facetQuery : facetQueries) {
