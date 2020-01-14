@@ -432,7 +432,7 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                         }
                         // We need to determine our top year so we can start our count from a clean year
                         // Example: 2001 and a gap from 10 we need the following result: 2010 - 2000 ; 2000 - 1990 hence the top year
-                        int topYear = (int) (Math.ceil((float) (newestYear)/gap)*gap);
+                        int topYear = (int) (Math.ceil((float) (newestYear + 1)/gap)*gap) - 1;
 
                         if(gap == 1){
                             //We need a list of our years
@@ -444,7 +444,7 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                             //Create facet queries but limit them to 11 (11 == when we need to show a "show more" url)
                             for(int year = topYear; year > oldestYear && (facetQueries.size() < 11); year-=gap){
                                 //Add a filter to remove the last year only if we aren't the last year
-                                int bottomYear = year - gap;
+                                int bottomYear = year - gap + 1;
                                 //Make sure we don't go below our last year found
                                 if(bottomYear < oldestYear)
                                 {
@@ -457,11 +457,11 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                                 {
                                     currentTop = newestYear;
                                 }
-                                else
-                                {
-                                    //We need to do -1 on this one to get a better result
-                                    currentTop--;
-                                }
+//                                else
+//                                {
+//                                    //We need to do -1 on this one to get a better result
+//                                    currentTop--;
+//                                }
                                 facetQueries.add(dateFacet + ":[" + bottomYear + " TO " + currentTop + "]");
                             }
                             for (String facetQuery : facetQueries) {
