@@ -412,16 +412,10 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                         }
 
                         int gap = 1;
-                        // DATASHARE - start
-	
-	                // Changes based on https://jira.duraspace.org/browse/DS-3791 and
-	                // quick fix https://github.com/DSpace/DSpace/pull/1901
-	
-	                //Attempt to retrieve our gap using the algorithm below.
-	                // One year is added to the "newestYear" to take into account that EXACTLY 10 years apart in values (eg: 2007-2017 entails 11 years)
-	                int yearDifference = (newestYear+1) - oldestYear;
-	
-	                // DATASHARE - END
+                        //Attempt to retrieve our gap using the algorithm below
+
+                        int yearDifference = newestYear - oldestYear;
+                        
                         if(yearDifference != 0){
                             while (10 < ((double)yearDifference / gap)){
                                 gap *= 10;
@@ -429,8 +423,13 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                         }
                         // We need to determine our top year so we can start our count from a clean year
                         // Example: 2001 and a gap from 10 we need the following result: 2010 - 2000 ; 2000 - 1990 hence the top year
-                        int topYear = (int) (Math.ceil((float) (newestYear)/gap)*gap);
-
+                        
+                        // Datashare - start 
+//                        int topYear = (int) (Math.ceil((float) (newestYear + 1)/gap)*gap);
+                        // Subract 1 to get 2000 - 2009, 2010- - 2019, etc to get top year
+                        int topYear = (int) (Math.ceil((float) (newestYear + 1)/gap)*gap) - 1;
+                        // Datashare - end
+                        
                         if(gap == 1){
                             //We need a list of our years
                             //We have a date range add faceting for our field
@@ -440,8 +439,14 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                             java.util.List<String> facetQueries = new ArrayList<String>();
                             //Create facet queries but limit them to 11 (11 == when we need to show a "show more" url)
                             for(int year = topYear; year > oldestYear && (facetQueries.size() < 11); year-=gap){
+                            	
+                            	// Datashare - start 
                                 //Add a filter to remove the last year only if we aren't the last year
-                                int bottomYear = year - gap;
+//                                int bottomYear = year - gap + 1;
+                                // Added 1 to get bottom year to match to decade start becacuse of topYear change above
+                                int bottomYear = year - gap + 1;
+                                // Datashare - end 
+                                
                                 //Make sure we don't go below our last year found
                                 if(bottomYear < oldestYear)
                                 {
@@ -454,11 +459,24 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                                 {
                                     currentTop = newestYear;
                                 }
-                                else
-                                {
-                                    //We need to do -1 on this one to get a better result
-                                    currentTop--;
+                                
+                                 // Datashare - start
+                                
+// ------------------------------------COMMENTED OUT -------------------------------------------------
+//                                else
+//                                {
+//                                    //We need to do -1 on this one to get a better result
+//                                    currentTop--;
+//                                }
+// -------------------------------------------------------------------------------------                               
+                                if(currentTop == bottomYear) {
+                                	//We need to do +1 on this one to get a better result
+                                	// This prevents getting 2020-2020 (where topYear coincides with bottomYear)
+                                	currentTop++;
                                 }
+                                
+                             // Datashare - end
+                                
                                 facetQueries.add(dateFacet + ":[" + bottomYear + " TO " + currentTop + "]");
                             }
                             for (String facetQuery : facetQueries) {
